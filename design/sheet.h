@@ -37,7 +37,7 @@ private:
 
 	bool CheckPositionValidity(Position pos, PositionValidity key) const;
 
-	// Можете дополнить ваш класс нужными полями и методами
+	// Возоможно, стоит заменить на std::unordered_map<Position, Cell_ptr>
 	std::vector<std::vector<std::unique_ptr<Cell>>> table_;
     //Size printable_size_;
 	std::vector<int> existing_cols_{ 0 };
