@@ -9,6 +9,20 @@
 
 namespace ASTImpl {
 class Expr;
+
+
+class CellExpr : public Expr {
+public: 
+    // FormulaAST будет вычислять значение для операнда CELL через
+    // переданную функцию из метода Evaluate(const SheetInterface& sheet) formula.cpp 
+    // которая будет выглядеть примерно так: sheet.GetCell->GetValue
+    double Evaluate(const std::function<double(Position)>& func) {
+        return func(value_);
+    }
+private:
+    Position value_;
+
+};
 }
 
 class ParsingError : public std::runtime_error {
@@ -28,6 +42,7 @@ public:
 
 private:
     std::unique_ptr<ASTImpl::Expr> root_expr_;
+    std::forward_list<Position> cells_;
 };
 
 FormulaAST ParseFormulaAST(std::istream& in);
